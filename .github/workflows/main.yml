@@ -8,3 +8,6 @@ jobs:
   buidjob:
     name: build job
     runs-on: prabhatrunner
+    steps:
+      - name: build step
+        run: terraform init
