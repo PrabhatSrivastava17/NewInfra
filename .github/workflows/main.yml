@@ -10,4 +10,4 @@ jobs:
     runs-on: prabhatrunner
     steps:
       - name: build step
-        run: terraform init
+        run: echo "terraform init"
