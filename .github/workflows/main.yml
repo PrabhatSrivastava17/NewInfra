@@ -1,0 +1,10 @@
+name: myfirstworkflow
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+jobs: 
+  buidjob:
+    name: build job
+    runs-on: prabhatrunner
