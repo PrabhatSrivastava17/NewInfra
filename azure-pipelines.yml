@@ -6,7 +6,7 @@ trigger:
 pool:
   name: prabhatpool1
 variables:
-  ps12: "pranamservice_123"
+  ps12: prabhat1234
 stages:
     - stage: buildstage
       displayName: build stage
@@ -18,34 +18,38 @@ stages:
               inputs:
                 terraformVersion: 'latest'
             - task: TerraformTask@5
+              displayName: terraform init
               inputs:
                 provider: 'azurerm'
                 command: 'init'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
-                backendServiceArm: 'pranamservice_123'
+                backendServiceArm: '$(ps12)'
                 backendAzureRmResourceGroupName: 'prod2908'
                 backendAzureRmStorageAccountName: 'prodstorage2908'
                 backendAzureRmContainerName: 'prodcontainer2809'
                 backendAzureRmKey: 'prod.tfstate'
             - task: TerraformTask@5
+              displayName: terraform fmt
               inputs:
                 provider: 'azurerm'
                 command: 'custom'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
                 outputTo: 'console'
                 customCommand: 'fmt'
-                environmentServiceNameAzureRM: 'pranamservice_123'
+                environmentServiceNameAzureRM: $(ps12)
             - task: TerraformTask@5
+              displayName: terraform validate
               inputs:
                 provider: 'azurerm'
                 command: 'validate'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
             - task: TerraformTask@5
+              displayName: terraform plan
               inputs:
                 provider: 'azurerm'
                 command: 'plan'
                 workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
-                environmentServiceNameAzureRM: 'pranamservice_123'
+                environmentServiceNameAzureRM: '$(ps12)'
             
             
                 
