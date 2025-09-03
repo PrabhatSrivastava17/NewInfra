@@ -1,0 +1,48 @@
+name: prabhatpipeline
+trigger:
+ branches:
+     include:
+         - main
+pool:
+name: prabhatpool1
+variables:
+  ps12: "pranamservice_123"
+stages:
+    - stage: buildstage
+      displayName: build stage
+      jobs:
+          - job: buildjob
+            displayName: build job
+            steps:
+            - task: TerraformInstaller@1
+              inputs:
+                terraformVersion: 'latest'
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                commandOptions: 'init'
+                backendServiceArm: $(ps12)
+                backendAzureRmOverrideSubscriptionID: 'b3b6b7ed-0b15-49ca-b3ce-092e07ca3fef'
+                backendAzureRmResourceGroupName: 'dev-prabhat-resource-group'
+                backendAzureRmStorageAccountName: 'prodstorage2908'
+                backendAzureRmContainerName: 'prodcontainer2809'
+                backendAzureRmKey: 'prod.tfstate'
+            - task: TerraformTask@5
+              displayName: terraform fmt 
+              inputs:
+                provider: 'azurerm'
+                command: 'custom'
+                outputTo: 'console'
+                customCommand: 'fmt'
+                environmentServiceNameAzureRM: $(ps12)
+            - task: TerraformTask@5
+              displayName: terraform validate
+              inputs:
+                provider: 'azurerm'
+                command: 'validate'
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                environmentServiceNameAzureRM: $(ps12)
