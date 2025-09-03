@@ -17,4 +17,36 @@ stages:
             - task: TerraformInstaller@1
               inputs:
                 terraformVersion: 'latest'
-          
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'init'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                backendServiceArm: 'pranamservice_123'
+                backendAzureRmResourceGroupName: 'prod2908'
+                backendAzureRmStorageAccountName: 'prodstorage2908'
+                backendAzureRmContainerName: 'prodcontainer2809'
+                backendAzureRmKey: 'prod.tfstate'
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'custom'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                outputTo: 'console'
+                customCommand: 'fmt'
+                environmentServiceNameAzureRM: 'pranamservice_123'
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'validate'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+            - task: TerraformTask@5
+              inputs:
+                provider: 'azurerm'
+                command: 'plan'
+                workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
+                environmentServiceNameAzureRM: 'pranamservice_123'
+            
+            
+                
+              
