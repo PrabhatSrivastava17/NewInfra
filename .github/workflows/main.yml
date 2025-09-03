@@ -7,7 +7,7 @@ on:
 jobs: 
   buidjob:
     name: build job
-    runs-on: prabhatrunner
+    runs-on: label-prabhat
     steps:
       - name: build step
         run: echo "terraform init"
