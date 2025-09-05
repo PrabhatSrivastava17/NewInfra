@@ -42,10 +42,10 @@ stages:
                   command: 'init'
                   workingDirectory: '$(System.DefaultWorkingDirectory)/environment/dev'
                   backendServiceArm: $(ps12)
-                  backendAzureRmResourceGroupName: 'prod2908'
-                  backendAzureRmStorageAccountName: 'prodstorage2908'
-                  backendAzureRmContainerName: 'prodcontainer2809'
-                  backendAzureRmKey: 'prod.tfstate'
+                  backendAzureRmResourceGroupName: 'newrg'
+                  backendAzureRmStorageAccountName: 'newstorages123'
+                  backendAzureRmContainerName: 'newcontainer'
+                  backendAzureRmKey: 'prabhat.tfstate'
             - ${{ if eq(parameters.prabhatfmt, true) }}:
               - task: TerraformTask@5
                 displayName: terraform fmt
