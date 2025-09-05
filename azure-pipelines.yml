@@ -11,11 +11,11 @@ parameters:
   - name: prabhatinit
     displayName: run init?
     type: boolean 
-    default: false 
+    default: false
   - name: prabhatfmt
     displayName: run fmt?
     type: boolean 
-    default: false 
+    default: false
   - name: prabhatvalidate
     displayName: run validate?
     type: boolean 
@@ -23,7 +23,7 @@ parameters:
   - name: prabhatplan
     displayName: run plan?
     type: boolean 
-    default: false 
+    default: false
 stages:
     - stage: buildstage
       displayName: build stage
